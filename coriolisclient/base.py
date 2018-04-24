@@ -238,4 +238,5 @@ class BaseManager(object):
         """Delete an object.
         :param url: a partial URL, e.g., '/servers/my-server'
         """
-        return self.client.delete(url, json)
+        print("base.py")
+        return self.client.delete(url, json=json)

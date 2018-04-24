@@ -64,6 +64,7 @@ class EndpointManager(base.BaseManager):
             data = {
                 "force": True
                 }
+        print("v1/endpoints.py-delete")
         return self._delete('/endpoints/%s' % base.getid(endpoint), data)
 
     def validate_connection(self, endpoint):
