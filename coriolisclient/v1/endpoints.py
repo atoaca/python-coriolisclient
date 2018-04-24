@@ -59,6 +59,7 @@ class EndpointManager(base.BaseManager):
             '/endpoints/%s' % base.getid(endpoint), data, 'endpoint')
 
     def delete(self, endpoint, force):
+        data = None
         if force:
             data = {
                 "force": True
