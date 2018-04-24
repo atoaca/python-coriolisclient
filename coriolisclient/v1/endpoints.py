@@ -58,8 +58,12 @@ class EndpointManager(base.BaseManager):
         return self._put(
             '/endpoints/%s' % base.getid(endpoint), data, 'endpoint')
 
-    def delete(self, endpoint):
-        return self._delete('/endpoints/%s' % base.getid(endpoint))
+    def delete(self, endpoint, force):
+        if force:
+            data = {
+                "force": True
+                }
+        return self._delete('/endpoints/%s' % base.getid(endpoint), data)
 
     def validate_connection(self, endpoint):
         data = self.client.post(

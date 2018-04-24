@@ -234,8 +234,8 @@ class BaseManager(object):
         else:
             return self.resource_class(self, body)
 
-    def _delete(self, url):
+    def _delete(self, url, json=None):
         """Delete an object.
         :param url: a partial URL, e.g., '/servers/my-server'
         """
-        return self.client.delete(url)
+        return self.client.delete(url, json)

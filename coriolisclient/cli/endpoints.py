@@ -172,10 +172,13 @@ class DeleteEndpoint(command.Command):
     def get_parser(self, prog_name):
         parser = super(DeleteEndpoint, self).get_parser(prog_name)
         parser.add_argument('id', help='The endpoint\'s id')
+        parser.add_argument('--force', action='store_true',
+                            help='Whether to delete an endpoint '
+                            'that is associated with a replica/migration.')
         return parser
 
     def take_action(self, args):
-        self.app.client_manager.coriolis.endpoints.delete(args.id)
+        self.app.client_manager.coriolis.endpoints.delete(args.id, args.force)
 
 
 class ListEndpoint(lister.Lister):
