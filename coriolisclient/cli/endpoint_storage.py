@@ -27,11 +27,11 @@ class EndpointStorageFormatter(formatter.EntityFormatter):
                "Name")
 
     def _get_sorted_list(self, obj_list):
-        return sorted(obj_list, key=lambda o: o['name'])
+        return sorted(obj_list, key=lambda o: o.name)
 
     def _get_formatted_data(self, obj):
-        data = (obj['id'],
-                obj['name'])
+        data = (obj.id,
+                obj.name)
         return data
 
 
@@ -51,6 +51,6 @@ class ListEndpointStorage(lister.Lister):
         if args.environment:
             environment = json.loads(args.environment)
         es = self.app.client_manager.coriolis.endpoint_storage
-        obj = es.get(args.endpoint, environment=environment)
+        obj_list = es.list(args.endpoint, environment=environment)
 
-        return EndpointStorageFormatter().list_objects(obj.storage_backends)
+        return EndpointStorageFormatter().list_objects(obj_list)

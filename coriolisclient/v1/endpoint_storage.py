@@ -28,7 +28,7 @@ class EndpointStorageManager(base.BaseManager):
     def __init__(self, api):
         super(EndpointStorageManager, self).__init__(api)
 
-    def get(self, endpoint, environment=None):
+    def list(self, endpoint, environment=None):
         url = '/endpoints/%s/storage' % base.getid(endpoint)
 
         if environment:
@@ -36,4 +36,14 @@ class EndpointStorageManager(base.BaseManager):
                 json.dumps(environment).encode()).decode()
             url = '%s?env=%s' % (url, encoded_env)
 
-        return self._get(url, 'storage')
+        return self._list(url, 'storage', values_key='storage_backends')
+
+    def get_default(self, endpoint, environment=None):
+        url = '/endpoints/%s/storage' % base.getid(endpoint)
+
+        if environment:
+            encoded_env = base64.b64encode(
+                json.dumps(environment).encode()).decode()
+            url = '%s?env=%s' % (url, encoded_env)
+
+        return self._get(url, 'storage').get('config_default')
